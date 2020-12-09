@@ -9,12 +9,14 @@ export default ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [photo, setPhoto] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [conversationID, setConversationID] = useState(null);
 
   useEffect(() => {
     AuthAPI.isAuthenticated().then((data) => {
       setPhoto(data.photo);
       setId(data.id);
       setUser(data.user);
+      setConversationID(data.conversationID);
       setIsAuthenticated(data.isAuthenticated);
       setIsLoaded(true);
     });
@@ -41,6 +43,8 @@ export default ({ children }) => {
             setId,
             photo,
             setPhoto,
+            conversationID,
+            setConversationID
           }}
         >
           {children}

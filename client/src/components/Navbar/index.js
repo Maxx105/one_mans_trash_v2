@@ -71,11 +71,9 @@ function Navbar() {
             <Link to="/about">
               <li className="nav-item nav-link">About</li>
             </Link>
-            {/* <Link to="/messages">
-                            <li className="nav-item nav-link">
-                                Messages
-                            </li>
-                        </Link> */}
+            <Link to="/messages">
+                <li className="nav-item nav-link">Messages</li>
+            </Link>
             <Link to={"/userprofile/" + id._id}>
               <li className="nav-item nav-link">Profile</li>
             </Link>
@@ -98,6 +96,7 @@ function Navbar() {
             width="55"
             height="55"
             className="img-thumbnail rounded-circle"
+            // style = {{borderStyle: "solid", borderColor: "black", borderWidth: "2px"}}
           />
         </li>
       </>
