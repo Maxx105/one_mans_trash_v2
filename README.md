@@ -3,7 +3,7 @@
 
 UCI Boot Camp Project 03 - One Man's Trash
 
-Click [here](https://one-mans-trash.herokuapp.com/) to open the deployed Github pages application.
+Click [here](https://one-mans-trash-v2.herokuapp.com/) to open the deployed application.
 
 ![deployed application](client/public/deployed_app.JPG)
 

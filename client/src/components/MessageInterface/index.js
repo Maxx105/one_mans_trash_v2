@@ -2,6 +2,7 @@ import React from "react";
 import MessageResponseForm from "../MessageResponseForm"
 
 function MessageInterface(props) {
+    console.log(props)
     const fromMessageStyle = {
         textAlign: "left",
         backgroundColor: "lightgrey"
@@ -15,7 +16,7 @@ function MessageInterface(props) {
             <h3 style={{textAlign: "center"}}><strong>{props.messageHeader.user} - {props.messageHeader.item}</strong></h3>
             {props.messages.map((message) => (
                 message.fromUsername === props.user ? 
-                <li className="list-group-item" id="messages" key={message.message} style={toMessageStyle}>{message.message}</li>
+                <li className="list-group-item" id="messages" key={message.id} style={toMessageStyle}>{message.message}</li>
                 : <li className="list-group-item" id="messages" key={message.message} style={fromMessageStyle}>{message.message}</li>
             ))}
         </div>

@@ -27,7 +27,13 @@ function Conversation() {
         if (id) {
         MessageAPI.getConversation(id)
         .then((res) => {
-            setMessages(res.message)
+            let idCounter = 0
+            let messages = res.message;
+            let messagesWithID = messages.map(message => {
+                message.id = idCounter++;
+                return message
+            })
+            setMessages(messagesWithID)
             if (res.message[0].fromUsername === authContext.user.username) {
                 setMessageHeader({user: res.message[0].toUsername, item: res.message[0].item})
             } else if (res.message[0].fromUsername !== authContext.user.username) {
@@ -81,6 +87,7 @@ function Conversation() {
         })
         .then(res => getConversations())
         .catch(err => console.log(err.response));
+        document.getElementById("response-input").value = "";
     }
 
     function handleResponseInputChange(e) {

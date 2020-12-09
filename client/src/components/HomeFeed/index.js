@@ -8,7 +8,7 @@ function HomeFeed(props) {
       {props.items.map((item) => (
         <div className="col-lg-3 col-md-6 col-sm-12" key={item._id}>
           <Link to={"/item/" + item._id} id="home-item-card-link">
-            <div className="card shadow" style={{ margin: "10px" }}>
+            <div className="card card-hover shadow" style={{ margin: "10px" }}>
               <div className="photo">
                 {item.photo ? (
                   <img
