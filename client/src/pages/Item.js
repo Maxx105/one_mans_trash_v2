@@ -7,10 +7,11 @@ import { AuthContext } from "../Context/AuthContext";
 import "../components/ItemsPage/style.css";
 import ItemMessageForm from "../components/ItemMessageForm";
 
-function Item() {
+function Item(props) {
   const [item, setItem] = useState({});
   const [user, setUser] = useState({});
   const [message, setMessage] = useState({});
+  const [errorMessage, setErrorMessage] = useState({})
 
   const authContext = useContext(AuthContext);
   const { id } = useParams();
@@ -49,7 +50,7 @@ function Item() {
     .then(res => {
       for (let i = 0; i < res.conversation.length; i++) {
         if (item.title === res.conversation[i].message[0].item && user.username === res.conversation[i].message[0].toUsername && authContext.user.username === res.conversation[i].message[0].fromUsername) {
-          updateConversation(res.conversation[i]._id);
+          setErrorMessage({message: "Already sent message to this user. Please respond on the message page.", error: true})
           return; 
         }
       }
@@ -57,6 +58,10 @@ function Item() {
     })
     .catch((err) => console.log(err.response));
     document.getElementById("message-input").value = "";
+    setTimeout(
+      () => props.history.push("/messages"),
+      5000
+    );
   }
 
   function postInitialConversation() {
@@ -72,6 +77,8 @@ function Item() {
       }]
     })
     .then(data => {
+      setErrorMessage({message: data.message, error: false})
+      console.log(data)
       MessageAPI.updateUserWithConversation(user._id, {
         conversation: message,
         id: data.id
@@ -82,21 +89,21 @@ function Item() {
     .catch((err) => console.log(err.response));
   }
 
-  function updateConversation(id) {
-    MessageAPI.updateConversation(id, {
-      message: [{
-        fromUsername: authContext.user.username,
-        fromUserID: authContext.id._id,
-        toUsername: user.username,
-        toUserID: user._id,
-        message: message,
-        item: item.title,
-        itemID: item._id
-      }]
-    })
-    .then(data => console.log("updated"))
-    .catch((err) => console.log(err.response));
-  }
+  // function updateConversation(id) {
+  //   MessageAPI.updateConversation(id, {
+  //     message: [{
+  //       fromUsername: authContext.user.username,
+  //       fromUserID: authContext.id._id,
+  //       toUsername: user.username,
+  //       toUserID: user._id,
+  //       message: message,
+  //       item: item.title,
+  //       itemID: item._id
+  //     }]
+  //   })
+  //   .then(data => console.log("updated"))
+  //   .catch((err) => console.log(err.response));
+  // }
 
   function messageChangeHandler(e) {
     setMessage(e.target.value)
@@ -196,6 +203,7 @@ function Item() {
         user = {user}
         submit = {messageSubmitHandler}
         onMessageChange = {messageChangeHandler}
+        errorMessage = {errorMessage}
       ></ItemMessageForm>
     </div>
   );

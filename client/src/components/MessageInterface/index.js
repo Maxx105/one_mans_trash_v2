@@ -2,7 +2,6 @@ import React from "react";
 import MessageResponseForm from "../MessageResponseForm"
 
 function MessageInterface(props) {
-    console.log(props)
     const fromMessageStyle = {
         textAlign: "left",
         backgroundColor: "lightgrey"

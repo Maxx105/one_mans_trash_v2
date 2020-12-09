@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import ItemAPI from "../../utils/ItemAPI";
 
 function ItemMessageForm(props) {
+  const [alertColor, setAlertColor] = useState("");
+
+  useEffect(() => {
+    if (props.errorMessage.error) {
+      setAlertColor("danger");
+    } else {
+      setAlertColor("success");
+    }
+  }, [props.errorMessage.error, props.errorMessage.message]);
+
   return (
     <div className = "container" style={{marginTop: "30px"}}>
       <div className="form-group">
@@ -24,6 +34,19 @@ function ItemMessageForm(props) {
               </div>
             </div>
         </div>
+        {props.errorMessage.message ? (
+        <div className={`alert alert-${alertColor}`} role="alert">
+          {props.errorMessage.message}{" "}
+          <div className="d-flex align-items-center">
+            <strong>Loading...</strong>
+            <div
+              className="spinner-border ml-auto"
+              role="status"
+              aria-hidden="true"
+            ></div>
+          </div>
+        </div>
+        ) : null}
     </div>
   );
 }
